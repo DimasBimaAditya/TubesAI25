@@ -162,6 +162,13 @@ control_frame.pack(pady=10)
 off_button = tk.Button(control_frame, text="MATIKAN AKTULATOR", command=lambda: send_command_to_arduino("OFF"), bg="red", fg="white", font=font_medium, width=20, height=2)
 off_button.pack(side="left", padx=5)
 
+def on_closing():
+    if messagebox.askokcancel("Keluar", "Anda yakin ingin keluar?"):
+        ser.close()
+        root.destroy()
+
+root.protocol("WM_DELETE_WINDOW", on_closing)
+
 def update_gui():
     global previous_status_to_arduino
     if ser.in_waiting > 0:
